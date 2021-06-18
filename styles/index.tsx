@@ -38,8 +38,22 @@ export const containers = {
     flex: 1,
     backgroundColor: colors.lightest,
     alignItems: 'center',
+    // justifyContent: 'center',
+    alignSelf: "stretch",
+  },
+  containerWithHeaderOffset: {
+    flex: 1,
+    backgroundColor: colors.lightest,
+    alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: "stretch",
+    marginTop: spacing.extraLarge*-1 // offset for the header
+  },
+  containerForWebView: {
+    flex: 1,
+    alignSelf: "stretch",
   }
+
 };
 
 export const text = {

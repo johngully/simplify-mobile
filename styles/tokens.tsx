@@ -28,6 +28,7 @@ export const spacing = {
   standard: baseSpacingSize,
   medium: baseSpacingSize*3,
   large: baseSpacingSize*6,
+  extraLarge: baseSpacingSize*12
 };
 
 export const typography = {
