@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import PlaidLink from '@burstware/expo-plaid-link';
 import { all } from "../styles";
 import { useLazyQuery, gql } from "@apollo/client";
+import { getTransactionsNavigationVariables } from "../utils/navigation";
 
 const accountIds = [];
 
@@ -21,10 +22,8 @@ export default function App(props) {
   if (bankAccessTokenPromise.error) return <View><Text>Error {JSON.stringify(bankAccessTokenPromise.error)}</Text></View>
   if (bankAccessTokenPromise.data) {
     const accessToken = bankAccessTokenPromise.data.bankAccessToken;
-    const now = new Date();
-    const endDate = now.toISOString().slice(0, 10);
-    const startDate = new Date(now.setDate(now.getDate()-30)).toISOString().slice(0, 10);
-    props.navigation.navigate("Transactions", { accessToken, accountIds, startDate, endDate });
+    const transactionsNavigationVariables = getTransactionsNavigationVariables(accessToken, accountIds);
+    props.navigation.navigate("Transactions", transactionsNavigationVariables);
   }
 
   function onExit(error) {
@@ -37,6 +36,7 @@ export default function App(props) {
     const accounts = response.metadata.accounts;
     accountIds.push(...accounts.map(account => account._id));
     const variables = { variables: { token }};
+    console.log("Call success()", variables);
     success(variables);
   };
 
